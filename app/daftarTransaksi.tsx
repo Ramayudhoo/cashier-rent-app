@@ -12,27 +12,27 @@ const daftarTransaksi = () => {
   const [items] = React.useState([
    {
      key: 1,
-     name: 'Cupcake',
-     calories: 356,
-     fat: 16,
+     inv:"INV/1111",
+     total:5000,
+     time:new Date().toLocaleString(),
    },
    {
      key: 2,
-     name: 'Eclair',
-     calories: 262,
-     fat: 16,
+     inv:"INV/2222",
+     total:2000,
+     time:new Date().toLocaleString(),
    },
    {
      key: 3,
-     name: 'Frozen yogurt',
-     calories: 159,
-     fat: 6,
+     inv:"INV/3333",
+     total:10000,
+     time:new Date().toLocaleString(),
    },
    {
      key: 4,
-     name: 'Gingerbread',
-     calories: 305,
-     fat: 3.7,
+     inv:"INV/4444",
+     total:25000,
+     time:new Date().toLocaleString(),
    },
   ]);
 
@@ -46,16 +46,16 @@ const daftarTransaksi = () => {
   return (
     <DataTable>
       <DataTable.Header>
-        <DataTable.Title>Dessert</DataTable.Title>
-        <DataTable.Title numeric>Calories</DataTable.Title>
-        <DataTable.Title numeric>Fat</DataTable.Title>
+        <DataTable.Title>Invoice</DataTable.Title>
+        <DataTable.Title>Time</DataTable.Title>
+        <DataTable.Title>Total</DataTable.Title>
       </DataTable.Header>
 
       {items.slice(from, to).map((item) => (
         <DataTable.Row key={item.key}>
-          <DataTable.Cell>{item.name}</DataTable.Cell>
-          <DataTable.Cell numeric>{item.calories}</DataTable.Cell>
-          <DataTable.Cell numeric>{item.fat}</DataTable.Cell>
+          <DataTable.Cell>{item.inv}</DataTable.Cell>
+          <DataTable.Cell numeric>{item.time}</DataTable.Cell>
+          <DataTable.Cell numeric>Rp. {item.total},00</DataTable.Cell>
         </DataTable.Row>
       ))}
 
