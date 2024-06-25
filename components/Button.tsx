@@ -1,24 +1,34 @@
-import React from 'react';
-import { Text, Pressable, PressableProps } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Colors } from '../constants/Colors';
+import { forwardRef } from 'react';
 
-interface ButtonProps extends PressableProps {
-  title?: string;
-  children?: React.ReactNode;
-}
+type ButtonProps = {
+  text: string;
+} & React.ComponentPropsWithoutRef<typeof Pressable>;
 
-const Button: React.FC<ButtonProps> = ({ title, style, children, ...props }) => {
-  return (
-    <Pressable
-      className="bg-blue-700 rounded-lg py-2.5 px-5 me-2 mb-2"
-      style={({ pressed }) => [
-        pressed && { backgroundColor: '#1E40AF' }, // bg-blue-800 (hover)
-        style,
-      ]}
-      {...props}
-    >
-      {title ? <Text className="text-white text-sm font-medium">{title}</Text> : children}
-    </Pressable>
-  );
-};
+const Button = forwardRef<View | null, ButtonProps>(
+  ({ text, ...pressableProps }, ref) => {
+    return (
+      <Pressable ref={ref} {...pressableProps} style={styles.container}>
+        <Text style={styles.text}>{text}</Text>
+      </Pressable>
+    );
+  }
+);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.light.tint,
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 100,
+    marginVertical: 10,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
+  },
+});
 
 export default Button;

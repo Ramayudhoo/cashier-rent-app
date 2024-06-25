@@ -1,21 +1,35 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Stack } from 'expo-router'
+import { Stack, useRouter, Redirect } from "expo-router";
+import { AuthProvider,useAuth } from "../providers/AuthProvider";
 
-const RootLayout = () => {
+import { useEffect } from "react";
+import React from "react";
+
+export default function Layout() {
+
+    const { session, loading } = useAuth();
+    const router = useRouter();
+    useEffect(() => {
+        if (!loading) {
+          if (!session) {
+            router.replace('/(auth)');
+          } else {
+            router.replace('/(home)');
+          }
+        }
+      }, [session, loading]);
+
   return (
-    <Stack>
-        <Stack.Screen name='index' options={{
-            headerShown:false,
-        }}/>
-        <Stack.Screen name='users/[id]' options={{
-            headerTitle:"User Page"
-        }}/>
-        <Stack.Screen name='antrian' options={{
-            headerTitle:"antrian",headerShown:false,
-        }}/>
+    <AuthProvider>
+      <Stack>
+        <Stack.Screen
+        name="(auth)"
+        options={{headerShown: false,}}
+        />
+        <Stack.Screen
+        name="(home)"
+        options={{headerShown: false,}}
+        />
     </Stack>
-  )
-}
-
-export default RootLayout
+        </AuthProvider>
+          );
+        }
